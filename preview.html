@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>How Are You Feeling?</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Card */
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 320px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: pop 0.6s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+h1 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.btn {
+    display: block;
+    margin: 10px auto;
+    padding: 12px;
+    width: 80%;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Button Colors */
+.hot { background: #ff4d4d; color: white; }
+.cool { background: #4da6ff; color: white; }
+.normal { background: #66cc66; color: white; }
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+/* Result Text */
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    min-height: 30px;
+    animation: fade 0.5s ease;
+}
+
+@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Emoji animation */
+.emoji {
+    font-size: 40px;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1>😜 Hey! How are you feeling today?</h1>
+
+    <button class="btn hot" onclick="showFeeling('hot')">🔥 I'm HOT!</button>
+    <button class="btn cool" onclick="showFeeling('cool')">❄️ I'm COOL!</button>
+    <button class="btn normal" onclick="showFeeling('normal')">🙂 Just NORMAL</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+function showFeeling(type) {
+    let text = "";
+
+    if(type === "hot") {
+        text = "🔥 Oops! Too much heat! AC ON cheyandi 😂";
+        document.body.style.background = "linear-gradient(135deg, #ff512f, #dd2476)";
+    }
+    else if(type === "cool") {
+        text = "❄️ Wah! Ice level cool 😎";
+        document.body.style.background = "linear-gradient(135deg, #36d1dc, #5b86e5)";
+    }
+    else {
+        text = "🙂 Balanced life... Perfect! 👌";
+        document.body.style.background = "linear-gradient(135deg, #a8e063, #56ab2f)";
+    }
+
+    document.getElementById("result").innerHTML =
+        `<div class="emoji">${type === "hot" ? "🔥" : type === "cool" ? "❄️" : "🙂"}</div>` + text;
+}
+</script>
+
+</body>
+</html>
