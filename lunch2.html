@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hungry Scanner 😂</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial;
+    background: linear-gradient(135deg, #fddb92, #d1fdff);
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    width: 320px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1 {
+    font-size: 20px;
+}
+
+/* Scanner */
+.scan-box {
+    width: 200px;
+    height: 120px;
+    border: 2px dashed #999;
+    margin: 15px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.scan-line {
+    width: 100%;
+    height: 4px;
+    background: red;
+    position: absolute;
+    animation: scan 1.5s linear infinite;
+}
+
+@keyframes scan {
+    0% { top: 0; }
+    100% { top: 100%; }
+}
+
+/* Buttons */
+.buttons {
+    position: relative;
+    height: 120px;
+}
+
+.btn {
+    position: absolute;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.25s ease;
+}
+
+#yesBtn {
+    background: #4CAF50;
+    color: white;
+    left: 40px;
+    top: 50px;
+}
+
+#noBtn {
+    background: #ff4d4d;
+    color: white;
+    left: 160px;
+    top: 50px;
+}
+
+/* Food emoji animation */
+.food {
+    position: absolute;
+    font-size: 24px;
+    animation: floatUp 2s linear forwards;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-150px); opacity: 0; }
+}
+
+.result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="title">🤖 Scanning your stomach...</h1>
+
+    <div class="scan-box">
+        <div class="scan-line"></div>
+    </div>
+
+    <div class="buttons" id="btnArea" style="display:none;">
+        <button class="btn" id="yesBtn" onclick="yesClick()">😋 YES</button>
+        <button class="btn" id="noBtn">🙅 NO</button>
+    </div>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+const title = document.getElementById("title");
+const btnArea = document.getElementById("btnArea");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+
+// 🔊 Voice function
+function speak(text) {
+    let speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "en-US";
+    speech.rate = 1;
+    window.speechSynthesis.speak(speech);
+}
+
+// 🍔 Food animation
+function showFood() {
+    const foods = ["🍔","🍕","🍟","🍗","🍛"];
+    for(let i=0; i<5; i++){
+        let f = document.createElement("div");
+        f.className = "food";
+        f.innerHTML = foods[Math.floor(Math.random()*foods.length)];
+        f.style.left = Math.random()*100 + "%";
+        f.style.top = "60%";
+        document.body.appendChild(f);
+
+        setTimeout(()=>f.remove(),2000);
+    }
+}
+
+// Scanner sequence
+setTimeout(() => {
+    title.innerHTML = "⚠️ ALERT: Stomach EMPTY 😱";
+    speak("Alert! Stomach is empty");
+}, 2000);
+
+setTimeout(() => {
+    title.innerHTML = "🍛 Verdict: Hungry confirmed 😂";
+    speak("Hungry detected!");
+}, 4000);
+
+setTimeout(() => {
+    title.innerHTML = "😜 Lunch ki veldama?";
+    btnArea.style.display = "block";
+    showFood();
+}, 6000);
+
+// 😈 NO button crazy movement
+function moveNo() {
+    let x = Math.random() * 200;
+    let y = Math.random() * 80;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    // swap sometimes
+    if(Math.random() > 0.5){
+        let temp = yesBtn.style.left;
+        yesBtn.style.left = noBtn.style.left;
+        noBtn.style.left = temp;
+    }
+}
+
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+// YES click
+function yesClick() {
+    document.getElementById("result").innerHTML =
+        "🍽️ Correct decision  😎! Let’s gooooo!";
+    speak("Good decision! Let's go eat!");
+    showFood();
+}
+</script>
+
+</body>
+</html>
