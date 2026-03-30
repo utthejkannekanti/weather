@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lunch Time 😋</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial;
+    background: linear-gradient(135deg, #fddb92, #d1fdff);
+}
+
+.container {
+    text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 320px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1 {
+    font-size: 22px;
+}
+
+/* Buttons area */
+.buttons {
+    position: relative;
+    height: 120px;
+}
+
+/* Buttons */
+.btn {
+    position: absolute;
+    padding: 12px 22px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* YES */
+#yesBtn {
+    background: #4CAF50;
+    color: white;
+    left: 50px;
+    top: 50px;
+}
+
+/* NO */
+#noBtn {
+    background: #ff4d4d;
+    color: white;
+    left: 170px;
+    top: 50px;
+}
+
+.result {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1>😜 Let’s go for lunch 🍛</h1>
+
+    <div class="buttons" id="btnArea">
+        <button class="btn" id="yesBtn" onclick="yesClick()">😋 YES</button>
+        <button class="btn" id="noBtn">🙅 NO</button>
+    </div>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+function swapButtons() {
+    // Get current positions
+    let yesRect = yesBtn.getBoundingClientRect();
+    let noRect = noBtn.getBoundingClientRect();
+
+    // Convert to container-relative positions
+    let containerRect = document.getElementById("btnArea").getBoundingClientRect();
+
+    let yesLeft = yesRect.left - containerRect.left;
+    let noLeft = noRect.left - containerRect.left;
+
+    // Swap positions
+    yesBtn.style.left = noLeft + "px";
+    noBtn.style.left = yesLeft + "px";
+}
+
+// Trigger when mouse comes near NO 😈
+noBtn.addEventListener("mouseenter", swapButtons);
+
+// Mobile touch
+noBtn.addEventListener("touchstart", swapButtons);
+
+function yesClick() {
+    document.getElementById("result").innerHTML =
+        "🍽️ Finally! Good choice 😎 Let's go eat!";
+}
+</script>
+
+</body>
+</html>
